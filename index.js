@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path"; // Import the path module
 import path from "path";
 import fs from "fs";
+import morgan from "morgan";
 
 import pool from "./configs/db.js";
 
@@ -14,6 +15,7 @@ const port = 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(morgan("dev"));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -25,9 +27,11 @@ app.get("/", (req, res) => {
 app.get("/:id", async (req, res) => {
   const { id } = req.params;
   const dataOfId = await pool.execute(
-    `SELECT content FROM data WHERE param = '${id}'`
+    `SELECT content FROM savet WHERE param = '${id}'`
   );
-  console.log(dataOfId[0][0]);
+  if (!dataOfId[0][0]) {
+    return res.render("index.ejs", { id, dataOfId: { content: "" } });
+  }
   return res.render("index.ejs", { id, dataOfId: dataOfId[0][0] });
 });
 
@@ -36,17 +40,17 @@ app.post("/save", async (req, res) => {
   let { param, content } = req.body;
 
   const check = await pool.execute(
-    `SELECT * FROM data WHERE param = '${param}'`
+    `SELECT * FROM savet WHERE param = '${param}'`
   );
 
   if (check[0][0]?.param && param && check[0][0]?.param === param) {
     await pool.execute(
-      `UPDATE data SET content = '${content}' WHERE param = '${param}';`
+      `UPDATE savet SET content = '${content}' WHERE param = '${param}';`
     );
     return res.redirect(`/${param}`);
   }
 
-  await pool.execute("INSERT INTO data(param,content) VALUES ( ?, ?)", [
+  await pool.execute("INSERT INTO savet(param,content) VALUES ( ?, ?)", [
     param,
     content,
   ]);
