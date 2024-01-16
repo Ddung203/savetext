@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Save text</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      header {
+        width: 100vw;
+        height: 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .submit {
+        position: absolute;
+        padding: 10px 20px;
+        background-color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      #text {
+        width: 98%;
+        min-height: 100vh;
+        padding: 10px;
+        resize: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form autocomplete="off" method="post" action="/save">
+      <header>
+        <input type="hidden" id="<%= id %>" name="param" value="<%= id %>" />
+        <button id="submit" class="submit" type="submit">Save</button>
+      </header>
+      <textarea name="content" id="text"><%= dataOfId.content %></textarea>
+    </form>
+  </body>
+</html>
