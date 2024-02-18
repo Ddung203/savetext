@@ -2,8 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Save text</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Save text clone</title>
     <style>
       * {
         margin: 0;
@@ -45,12 +48,32 @@
     </style>
   </head>
   <body>
-    <form autocomplete="off" method="post" action="/save">
+    <form
+      autocomplete="off"
+      method="post"
+      action="/save"
+    >
       <header>
-        <input type="hidden" id="<%= id %>" name="param" value="<%= id %>" />
-        <button id="submit" class="submit" type="submit">Save</button>
+        <input
+          type="hidden"
+          id="<%= id %>"
+          name="param"
+          value="<%= id %>"
+        />
+        <button
+          id="submit"
+          class="submit"
+          type="submit"
+        >
+          Save
+        </button>
       </header>
-      <textarea name="content" id="text"><%= dataOfId.content %></textarea>
+      <textarea
+        name="content"
+        id="text"
+      >
+<%= dataOfId.content %></textarea
+      >
     </form>
   </body>
 </html>

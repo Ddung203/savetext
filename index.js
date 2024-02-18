@@ -1,9 +1,9 @@
 import express from "express";
+import morgan from "morgan";
 import { fileURLToPath } from "url";
-import { dirname } from "path"; // Import the path module
+import { dirname } from "path";
 import path from "path";
 import fs from "fs";
-import morgan from "morgan";
 
 import pool from "./configs/db.js";
 
@@ -27,7 +27,8 @@ app.get("/", (req, res) => {
 app.get("/:id", async (req, res) => {
   const { id } = req.params;
   const dataOfId = await pool.execute(
-    `SELECT content FROM savet WHERE param = '${id}'`
+    `SELECT content FROM savet WHERE param = ?`,
+    [id]
   );
   if (!dataOfId[0][0]) {
     return res.render("index.ejs", { id, dataOfId: { content: "" } });
@@ -36,21 +37,20 @@ app.get("/:id", async (req, res) => {
 });
 
 app.post("/save", async (req, res) => {
-  console.log(">>>> check req", req.body);
   let { param, content } = req.body;
-
-  const check = await pool.execute(
-    `SELECT * FROM savet WHERE param = '${param}'`
-  );
+  const check = await pool.execute(`SELECT * FROM savet WHERE param = ?`, [
+    param,
+  ]);
 
   if (check[0][0]?.param && param && check[0][0]?.param === param) {
-    await pool.execute(
-      `UPDATE savet SET content = '${content}' WHERE param = '${param}';`
-    );
+    await pool.execute(`UPDATE savet SET content = ? WHERE param = ?;`, [
+      content,
+      param,
+    ]);
     return res.redirect(`/${param}`);
   }
 
-  await pool.execute("INSERT INTO savet(param,content) VALUES ( ?, ?)", [
+  await pool.execute("INSERT INTO savet(param,content) VALUES (?,?)", [
     param,
     content,
   ]);
