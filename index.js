@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
+import compression from "compression";
 import fs from "fs";
 
 import pool from "./configs/db.js";
@@ -15,6 +16,7 @@ const port = 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(compression());
 app.use(morgan("dev"));
 
 app.set("view engine", "ejs");
