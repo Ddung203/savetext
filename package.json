@@ -1,6 +1,6 @@
 {
-  "name": "read-imgs",
-  "version": "1.0.0",
+  "name": "save-your-text",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "type": "module",

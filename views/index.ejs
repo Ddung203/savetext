@@ -6,7 +6,40 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Save text clone</title>
+    <meta
+      name="description"
+      content="A simple way to save and share text"
+    />
+    <meta
+      name="keywords"
+      content="save text, savetext, share text"
+    />
+    <meta
+      property="og:title"
+      content="Save Your Text"
+    />
+    <meta
+      property="og:description"
+      content="A simple way to save and share text"
+    />
+    <link
+      rel="canonical"
+      href="https://savetext-v1.vercel.app"
+    />
+    <meta
+      name="author"
+      content="DDung203"
+    />
+    <meta
+      name="robots"
+      content="index, follow"
+    />
+    <link
+      rel="icon"
+      href="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2Flogo-savet.png?alt=media&token=c792dc0b-a714-4b6b-b8a1-77c35a96908f"
+      type="image/png"
+    />
+    <title>Save Your Text</title>
     <style>
       * {
         margin: 0;
@@ -41,9 +74,18 @@
 
       #text {
         width: 98%;
-        min-height: 100vh;
+        min-height: 90vh;
         padding: 10px;
         resize: none;
+      }
+
+      .select-all {
+        position: absolute;
+        right: 20px;
+        padding: 10px 20px;
+        background-color: #fff;
+        font-weight: bold;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -67,6 +109,13 @@
         >
           Save
         </button>
+        <button
+          type="button"
+          id="select-all"
+          class="select-all"
+        >
+          Copy text
+        </button>
       </header>
       <textarea
         name="content"
@@ -75,5 +124,37 @@
 <%= dataOfId.content %></textarea
       >
     </form>
+    <script>
+      function detectMob() {
+        const toMatch = [
+          /Android/i,
+          /webOS/i,
+          /iPhone/i,
+          /iPad/i,
+          /iPod/i,
+          /BlackBerry/i,
+          /Windows Phone/i,
+        ];
+
+        const isMobileDevice = toMatch.some((toMatchItem) =>
+          navigator.userAgent.match(toMatchItem)
+        );
+        const isSmallScreen =
+          window.innerWidth <= 800 && window.innerHeight <= 600;
+
+        return isMobileDevice || isSmallScreen;
+      }
+
+      if (detectMob() === false) {
+        const bodyElem = document.querySelector("body");
+        bodyElem.style.overflowX = "hidden";
+      }
+
+      document.getElementById("select-all").addEventListener("click", () => {
+        const textArea = document.getElementById("text");
+        textArea.select();
+        document.execCommand("copy");
+      });
+    </script>
   </body>
 </html>
