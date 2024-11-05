@@ -133,35 +133,25 @@
       >
     </form>
     <script>
-      function detectMob() {
-        const toMatch = [
-          /Android/i,
-          /webOS/i,
-          /iPhone/i,
-          /iPad/i,
-          /iPod/i,
-          /BlackBerry/i,
-          /Windows Phone/i,
-        ];
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("select-all").addEventListener("click", () => {
+          const textArea = document.getElementById("text");
+          textArea.select();
+          document.execCommand("copy");
+        });
 
-        const isMobileDevice = toMatch.some((toMatchItem) =>
-          navigator.userAgent.match(toMatchItem)
-        );
-        const isSmallScreen =
-          window.innerWidth <= 800 && window.innerHeight <= 600;
+        document.addEventListener("keydown", function (event) {
+          const submitButton = document.querySelector("#submit");
 
-        return isMobileDevice || isSmallScreen;
-      }
-
-      if (detectMob() === false) {
-        const bodyElem = document.querySelector("body");
-        bodyElem.style.overflowX = "hidden";
-      }
-
-      document.getElementById("select-all").addEventListener("click", () => {
-        const textArea = document.getElementById("text");
-        textArea.select();
-        document.execCommand("copy");
+          if (event.ctrlKey && event.key === "s") {
+            event.preventDefault();
+            if (submitButton) {
+              submitButton.click();
+            } else {
+              console.error("Something went wrong!");
+            }
+          }
+        });
       });
     </script>
   </body>
