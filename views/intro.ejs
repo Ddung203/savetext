@@ -8,15 +8,15 @@
     />
     <meta
       name="description"
-      content="A simple way to save and share text"
+      content="Save and share your text with ease. A simple and secure way to store and share your thoughts."
     />
     <meta
       name="keywords"
-      content="save text, savetext, share text"
+      content="save text, share text, text sharing, online notepad, cloud storage, note sharing"
     />
     <meta
       property="og:title"
-      content="Save Your Text"
+      content="Save Your Text - Share & Store Your Notes"
     />
     <meta
       property="og:image"
@@ -28,7 +28,15 @@
     />
     <meta
       property="og:description"
-      content="A simple way to save and share text"
+      content="A simple way to save and share text online, with ease and security."
+    />
+    <meta
+      property="og:type"
+      content="website"
+    />
+    <meta
+      property="og:site_name"
+      content="Save Your Text"
     />
     <link
       rel="canonical"
@@ -47,11 +55,37 @@
       href="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2Flogo-savet.png?alt=media&token=c792dc0b-a714-4b6b-b8a1-77c35a96908f"
       type="image/png"
     />
-    <title>Hướng dẫn | Save Your Text</title>
+    <title>Save Your Text - A Simple Way to Save & Share Text</title>
+
+    <!-- Preconnect to improve performance -->
+    <link
+      rel="preconnect"
+      href="https://firebasestorage.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://savetext-v1.vercel.app"
+    />
     <style>
+      body {
+        font-size: 18px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
       h2,
       p {
         text-align: center;
+      }
+      .main {
+        margin-top: 20px;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .main input,
+      button {
+        padding: 5px 10px;
       }
     </style>
   </head>
@@ -60,8 +94,47 @@
     <p>Thêm đoạn mã tùy chọn của riêng bạn vào sau đường dẫn hiện tại</p>
     <p>
       Ví dụ:<br />
-      https://savetext-v1.vercel.app <br />=>
-      https://savetext-v1.vercel.app/abc123
+      https://savetext-v1.vercel.app <br />=> https://savetext-v1.vercel.app<b
+        >/abc123</b
+      >
     </p>
+
+    <p>Hoặc Nhập mã</p>
+    <div class="main">
+      <form
+        id="redirectForm"
+        autocomplete="off"
+      >
+        <input
+          id="pageId"
+          type="text"
+          placeholder="abc123"
+          required
+        />
+        <button type="submit">Đi tới</button>
+      </form>
+    </div>
+
+    <script>
+      function sanitizeString(input) {
+        return input.toLowerCase().replace(/[^a-z0-9]/g, "");
+      }
+
+      const redirectForm = document.getElementById("redirectForm");
+      const pageInput = document.getElementById("pageId");
+
+      redirectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const pageValue = sanitizeString(pageInput.value.trim());
+
+        if (pageValue) {
+          const newURL = `${window.location.origin}${window.location.pathname}${pageValue}`;
+          window.location.href = newURL;
+        } else {
+          alert("Vui lòng nhập mã hợp lệ!");
+        }
+      });
+    </script>
   </body>
 </html>
