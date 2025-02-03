@@ -112,6 +112,10 @@
         font-size: 16px;
         line-height: 1.5;
       }
+
+      .password-input {
+        padding: 5px 10px;
+      }
     </style>
   </head>
   <body>
@@ -126,6 +130,13 @@
           id="<%= id %>"
           name="param"
           value="<%= id %>"
+        />
+        <input
+          class="password-input"
+          type="text"
+          name="password"
+          placeholder="Enter password (optional)"
+          maxlength="15"
         />
         <button
           id="submit"
@@ -158,7 +169,6 @@
 <%= dataOfId.content %></textarea
       >
     </form>
-
     <!-- Javascript -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
