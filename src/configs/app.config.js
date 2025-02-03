@@ -15,8 +15,6 @@ const AppConfig = {
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     maxAge: 86400,
   },
-  JWT_SECRET: process.env.JWT_SECRET || "LxoGHMh9E8jNE8ufN66C450mltw238Qu9g",
-  EXPIRES_IN: process.env.EXPIRES_IN || "1h",
 };
 
 export default AppConfig;

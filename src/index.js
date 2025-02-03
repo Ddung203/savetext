@@ -23,6 +23,10 @@ app.use(morgan("dev"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.get("/ping", async (req, res) => {
+  return res.status(200).json({ message: "pong" });
+});
+
 app.get("/", async (req, res) => {
   return res.render("intro.ejs");
 });
